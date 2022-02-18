@@ -5,6 +5,7 @@ function App() {
   const [hits, setHits] = useState([]);
   const [search, setSearch] = useState('react hooks');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const ref = useRef();
 
   // useEffect(async () => {}, []);
@@ -21,11 +22,15 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const results = await axios.get(
-      `http://hn.algolia.com/api/v1/search?query=${search}`
-    );
-    setHits(results.data.hits);
-    setSearch('');
+    try {
+      const results = await axios.get(
+        `http://hn.algolia.com/api/v1/search?query=${search}`
+      );
+      setHits(results.data.hits);
+      setSearch('');
+    } catch (err) {
+      setError(err);
+    }
     setLoading(false);
   };
 
@@ -58,6 +63,8 @@ function App() {
           })}
         </ul>
       )}
+
+      {error && <div>{error.message}</div>}
     </div>
   );
 }
