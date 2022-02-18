@@ -3,25 +3,47 @@ import axios from 'axios';
 
 function App() {
   const [hits, setHits] = useState([]);
-  
-  useEffect(async () => {
+  const [search, setSearch] = useState('react hooks');
+
+  // useEffect(async () => {}, []);
+
+  const handleSearchChange = (e) => {
+    setSearch(e.target.value);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     const results = await axios.get(
-      'http://hn.algolia.com/api/v1/search?query=reacthooks'
+      `http://hn.algolia.com/api/v1/search?query=${search}`
     );
     setHits(results.data.hits);
-  }, []);
+  };
 
   return (
     <div className="App">
-      <ul>
-        {hits.map((hit) => {
-          return (
-            <li key={hit.objectID}>
-              <a href={hit.url}>{hit.title}</a>
-            </li>
-          );
-        })}
-      </ul>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="search"
+          value={search}
+          onChange={handleSearchChange}
+        />
+        <button>Seach</button>
+      </form>
+
+      {!search ? (
+        <p> nothing to see here folks</p>
+      ) : (
+        <ul>
+          {hits.map((hit) => {
+            return (
+              <li key={hit.objectID}>
+                <a href={hit.url}>{hit.title}</a>
+              </li>
+            );
+          })}
+        </ul>
+      )}
     </div>
   );
 }
