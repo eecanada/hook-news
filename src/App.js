@@ -39,8 +39,9 @@ function App() {
       <img
         src="https://miro.medium.com/max/768/1*0j4xd4B_o-jxiaM9QYqgWw.png"
         alt="hooks"
-        width="100" height="100"
-        className='float-right'
+        width="100"
+        height="100"
+        className="float-right"
       />
       <h1 className="text-4xl text-purple-900		 font-thin"> Hook News </h1>
 
@@ -62,14 +63,14 @@ function App() {
           Clear
         </button>
 
-        <button className=" bg-red-300 p-1 rounded border-0">Seach</button>
+        <button className="bg-red-300 p-1 rounded border-0">Seach</button>
       </form>
 
       {loading ? (
-        <button type="button" class="bg-rose-600 ..." disabled>
-          <svg class="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24"></svg>
-          Processing
-        </button>
+        <div className="flex items-center justify-center space-x-2 animate-ping">
+          <br></br>
+          <div className="w-4 h-4 bg-blue-400 rounded-full"></div>
+        </div>
       ) : (
         <ul className="leading-normal">
           {hits.map((hit) => {
