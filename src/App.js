@@ -23,7 +23,7 @@ function App() {
     setLoading(true);
     try {
       const results = await axios.get(
-        `http://hn.algolia.com/api/v1/search?query=${search}`
+        `https://hn.algolia.com/api/v1/search?query=${search}`
       );
       const ten = results.data.hits.splice(1, 10);
       setHits(ten);
